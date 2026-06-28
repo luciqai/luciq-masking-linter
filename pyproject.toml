@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "luciq-masking-linter"
+# Unified version across both distributions (Python CLI + Android Lint jar). One git tag
+# `X.Y.Z` releases both; keep this in step with android-lint/build.gradle.kts.
+version = "0.1.0"
+description = "Release-gate linter that checks Luciq-SDK apps for PII-masking gaps (iOS + Android)."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Luciq" }]
+keywords = ["luciq", "pii", "masking", "linter", "ci", "ios", "android", "privacy"]
+dependencies = []  # stdlib only
+
+[project.urls]
+Homepage = "https://docs.luciq.ai"
+Repository = "https://github.com/luciqai/luciq-masking-linter"
+Organization = "https://luciq.ai"
+
+# Exposes the `luciq-masking-linter` command. main() returns the exit code, which
+# the console-script wrapper passes to sys.exit — so the gate's 0/1 is preserved.
+[project.scripts]
+luciq-masking-linter = "luciq_masking_linter:main"
+
+[tool.setuptools]
+py-modules = ["luciq_masking_linter"]
