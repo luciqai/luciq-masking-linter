@@ -1,0 +1,4 @@
+pii_masking:
+  compliance: hipaa
+  keywords:
+    ssn: [fiscalCode]

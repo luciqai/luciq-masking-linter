@@ -1,0 +1,54 @@
+# Publishes the `luciq-masking-linter` Python CLI to PyPI on a version tag.
+#
+# Uses PyPI Trusted Publishing (OIDC) — there is NO token to store. Before the first
+# release, register this repo + workflow as a "pending publisher" on PyPI:
+#   PyPI → your project/account → Publishing → add a GitHub publisher with
+#     owner: luciqai   repo: luciq-masking-linter
+#     workflow: release-pypi.yml   environment: pypi
+#
+# Versioning is unified: one bare-semver tag `X.Y.Z` releases BOTH the Python CLI (here)
+# and the Android Lint jar (via JitPack). Cut a release by tagging:
+#   git tag 0.2.0 && git push origin 0.2.0
+# The tag must match `version` in pyproject.toml (and android-lint/build.gradle.kts).
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      # Bare semver only (e.g. 0.2.0) — NOT a `v` prefix, so it matches the JitPack tag too.
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Build sdist + wheel
+        run: |
+          python -m pip install --upgrade build twine
+          python -m build
+          python -m twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi # add required reviewers here to gate releases
+    permissions:
+      id-token: write # required for Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,32 @@
+# luciq.yml — shared Luciq configuration file.
+#
+# This file is intentionally multi-purpose: different Luciq tools read their own
+# top-level section over time. The PII masking linter reads ONLY the `pii_masking`
+# section below. Everything else about your app's masking setup is read directly
+# from your source code, so nothing here duplicates the code.
+#
+# The `pii_masking` section holds the only two things the linter cannot learn from
+# the code:
+#   1. compliance — a business/legal decision that lives nowhere in the source.
+#   2. keywords   — custom PII naming the built-in families wouldn't recognize.
+#
+# `compliance` may also be supplied at run time via --compliance or the
+# LUCIQ_COMPLIANCE env var, which override whatever is set here.
+
+pii_masking:
+  # One of: none | soc2 | pci | gdpr | hipaa
+  # Tightens which findings block vs warn, and which auto-mask types are required.
+  compliance: none
+
+  # Custom PII keyword stems, grouped by family. The linter regex-matches each stem
+  # against ANY field name (so `taxId` also catches `taxIdNumber`, `userTaxId`, …).
+  # Grouping by family lets compliance severity apply (e.g. `health` becomes a hard
+  # fail under HIPAA). Family names should match docs/keyword-families.md.
+  #
+  # The luciq_pii_masking_detector skill proposes additions to this list; a human
+  # owner reviews and commits them. Built-in families (email, card, ssn, …) need no
+  # entry here — only your app-specific naming does.
+  keywords:
+    ssn:    [fiscalCode, taxId]
+    health: [mrnCode, diagnosisRef]
+    member: [memberRef]            # a custom family with no built-in equivalent

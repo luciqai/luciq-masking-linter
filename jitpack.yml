@@ -1,0 +1,27 @@
+# JitPack build configuration.
+#
+# This repo's publishable artifact is the Android Lint module, which is a nested,
+# standalone Gradle build under android-lint/ (the repo root is the Python CLI). JitPack
+# defaults to building at the root, so this file points it at that subfolder.
+#
+# JitPack builds the requested git tag and serves the artifact under the com.github
+# namespace. Consumers install it with:
+#
+#   // settings.gradle.kts
+#   repositories { maven { url = uri("https://jitpack.io") } }
+#
+#   // app/build.gradle.kts
+#   dependencies { lintChecks("com.github.luciqai:luciq-masking-lint:<tag>") }
+#
+# The git tag must match `version` in android-lint/build.gradle.kts (e.g. tag `0.2.0`).
+# JitPack sets the VERSION env var to the requested tag, which the build reads, so a
+# matching tag resolves cleanly.
+#
+# NOTE: confirm the exact coordinate from the first build log at
+# https://jitpack.io/#luciqai/luciq-masking-linter once the repo is public and tagged.
+
+jdk:
+  - openjdk17
+
+install:
+  - cd android-lint && ./gradlew clean publishToMavenLocal
