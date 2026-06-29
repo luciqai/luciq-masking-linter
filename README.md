@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    lintChecks("com.github.luciqai:luciq-masking-lint:0.1.0")
+    lintChecks("com.github.luciqai:luciq-masking-lint:0.1.1")
 }
 ```
 
@@ -47,7 +47,7 @@ failed build in CI. It reads your project's [`luciq.yml`](#configure--luciqyml-o
 (compliance level + custom keywords) — the same file the CLI uses. Control blocking vs.
 report-only in [Lint settings](#android--lint-settings).
 
-> On Maven Central instead? Use `ai.luciq:luciq-masking-lint:0.1.0` and drop the JitPack line.
+> On Maven Central instead? Use `ai.luciq:luciq-masking-lint:0.1.1` and drop the JitPack line.
 
 ### iOS
 

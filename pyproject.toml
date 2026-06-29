@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "luciq-masking-linter"
 # Unified version across both distributions (Python CLI + Android Lint jar). One git tag
 # `X.Y.Z` releases both; keep this in step with android-lint/build.gradle.kts.
-version = "0.1.0"
+version = "0.1.1"
 description = "Release-gate linter that checks Luciq-SDK apps for PII-masking gaps (iOS + Android)."
 readme = "README.md"
 requires-python = ">=3.8"

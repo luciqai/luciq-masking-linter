@@ -24,7 +24,7 @@ group = "ai.luciq"
 // JitPack builds a requested tag and expects the published version to match it. It sets
 // the VERSION env var to the requested coordinate; fall back to the release version for
 // local builds / publishToMavenLocal (where VERSION is unset).
-version = System.getenv("VERSION") ?: "0.1.0"
+version = System.getenv("VERSION") ?: "0.1.1"
 
 // Android Lint API. Convention: lint version = AGP version + 23.0.0 (AGP 9.0.1 → 32.0.1).
 val lintVersion = "32.0.1"

@@ -13,7 +13,7 @@
 #   // app/build.gradle.kts
 #   dependencies { lintChecks("com.github.luciqai:luciq-masking-lint:<tag>") }
 #
-# The git tag must match `version` in android-lint/build.gradle.kts (e.g. tag `0.1.0`).
+# The git tag must match `version` in android-lint/build.gradle.kts (e.g. tag `0.1.1`).
 # JitPack sets the VERSION env var to the requested tag, which the build reads, so a
 # matching tag resolves cleanly.
 #
