@@ -32,9 +32,12 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-    lintChecks("com.github.luciqai:luciq-masking-lint:0.1.1")
+    lintChecks("com.github.luciqai:luciq-masking-linter:0.1.1")
 }
 ```
+
+> Note the artifact id is `luciq-masking-linter` (the repo name) — JitPack publishes under
+> the repo name, not the module's `luciq-masking-lint` id.
 
 **3.** Run it:
 
